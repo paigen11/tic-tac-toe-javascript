@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe using native Javascript</title>
+
+	<link rel="stylesheet" type="text/css" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="title-wrapper">
+	<h1>TIC TAC TOE</h1>
+	<h2 id="message"></h2>
+</div>
+<div class="button-wrapper">
+	<input type="button" id="onePlayer" value="1 Player" onclick="withComputer()">
+	<input type="button" id="twoPlayers" value="2 Players" onclick="markSquare('box')">
+	<input type="button" value="Reset Game" onclick="reset()">
+</div>
+
+<div class="game-wrapper">
+
+	<div class="board-row-1 board-row">
+		<button id="A1" class="box" onclick="markSquare(this)">-</button>
+		<button id="A2" class="box" onclick="markSquare(this)">-</button>
+		<button id="A3" class="box" onclick="markSquare(this)">-</button>
+	</div>
+	<div class="board-row-2 board-row">
+		<button id="B1" class="box" onclick="markSquare(this)">-</button>
+		<button id="B2" class="box" onclick="markSquare(this)">-</button>
+		<button id="B3" class="box" onclick="markSquare(this)">-</button>
+	</div>
+	<div class="board-row-3 board-row">
+		<button id="C1" class="box" onclick="markSquare(this)">-</button>
+		<button id="C2" class="box" onclick="markSquare(this)">-</button>
+		<button id="C3" class="box" onclick="markSquare(this)">-</button>
+	</div>
+
+</div>
+
+<script type="text/javascript" src="scripts.js"></script>
+
+</body>
+</html>
