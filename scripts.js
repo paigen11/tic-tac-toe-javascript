@@ -15,84 +15,66 @@ var winners = [
 var player1 = []; //array where we will stash the squares player 1 has checked
 var player2 = []; //array for player2
 var someoneWon = false;
-var computer = false;
-var attemptedMove;
+var numPlayers = 1;
 
+var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
+
+function setNumberOfUsers(x){
+	numPlayers = x;
+}
 
 function markSquare(square){
 	if(someoneWon){
 		message.innerHTML = ("Why are you still trying? Someone already won. Time for a new game.");
-	}
-	//check to see if this square is in either player array. if so, goodbye
-	else if((player1.indexOf(square.id) == -1) && (player2.indexOf(square.id) == -1)){ //look in player1 array for this square, look in player2 array for this square
+	}else if((player1.indexOf(square.id) == -1) && (player2.indexOf(square.id) == -1)){ 
+			//check to see if this square is in either player array. if so, goodbye
 			//if BOTH are -1 then it's in neither array
-		if(whosTurn == 1){
+		if(whosTurn == 1){	
 			square.innerHTML = "X";
-			whosturn = 2;
-			player1.push(square.id);
+			player1.push(square.id)
 			checkWin(player1,1);
-				if((computer) && (player1.length < 5)){ //determines if this is one player mode and gets computer to play
-					var pick = compOptions(square);
-					document.getElementById(pick).innerHTML = "0";
-					player2.push(pick);
-					whosTurn = 1;
-					checkWin(player2,2);
+			if(numPlayers == 1){
+				// this is a one player game. move the computer
+				moveComputer();
+			}else{
+				// this is a two player game. switch control
+				whosTurn = 2;
+				}
 		}else{
 			square.innerHTML = "0";
 			whosTurn = 1;
 			player2.push(square.id);
 			checkWin(player2,2);
 		}
-		
-		console.dir(player1);
 	}else{
 		console.log("Something's already there. No cheating!!");
-		}
 	}
 }
 
-function withComputer() {
-	computer= true;
-}
 
-var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
-
-function compOptions(square){
-
-	var pick;
-	var valid = false;
+function moveComputer(){
+	// get a valid square for the computer to markSquare
+	// we have the options array which has ALL squares in it
+	var valid = false;  // initialize valid to false, change when we have a valid (not-taken) square
+	// the code is trapped in this loop until we change valid
 	while(!valid){
-		pick = Math.floor(Math.random() * 9);
-		pick = options[pick];
-		if((player1.indexOf(square.id) == -1) && (player2.indexOf(pick) == -1)){
+		var squareNumber = Math.floor(Math.random() * 9);
+		// we have a random number between 0 and 8, grab that square out of options and see if player1 or player2 has it
+		isInPlayerOne = player1.indexOf(options[squareNumber]);
+		isInPlayerTwo = player2.indexOf(options[squareNumber]);
+		if((isInPlayerOne == -1) && (isInPlayerTwo == -1)){
+			// this square is not in player1 or player2's arrays
 			valid = true;
+		}else{
+				// taken!!
 		}
-	return pick;
+		console.log(squareNumber);	
 	}
+	document.getElementById(options[squareNumber]).innerHTML = "0";
+	whosTurn = 1;
+	player2.push(squareNumber);
+	checkWin(player2,2);
 }
-
-// function aiMove(){
-    
-//     function getMove(){
-//         var moveChoice1 = Math.floor(Math.random() * 8);
-//         var moveChoice2 = Math.floor(Math.random() * 3);
-//         var move = winners[moveChoice1][moveChoice2];
-//         return move;
-//     }
-//     var validMove = false;
-//     var attemptedMove;
-
-//     while (validMove === false) {
-
-//         var attemptedMove = getMove();
-//         if ((player1.indexOf(attemptedMove) == -1) && (player2.indexOf(attemptedMove) == -1)) {
-//             validMove = true;
-//         }
-//     }
-//     if (validMove){
-//         return attemptedMove;
-//     }
-// }
 
 function checkWin(currentPlayersSquares, whoJustMarked){
 	var rowCount = 0;
@@ -112,21 +94,32 @@ function checkWin(currentPlayersSquares, whoJustMarked){
 			}
 		}
 	}
+	if(player1.length + player2.length == 9){
+		gameOver("Draw");
+	}
 }
 
 function gameOver(whoWon, winningCombo){
 	var message = document.getElementById("message");
-	message.innerHTML = "Congratulations to player " + whoWon + ". You won with " + winningCombo.join(", ");
-	for(var i = 0; i < winningCombo.length; i++){
-		document.getElementById(winningCombo[i]).className += " winner";
+	if(whoWon == "Draw"){
+		message.innerHTML = "Time to reset the game. You had a draw."
+	}else{
+		message.innerHTML = "Congratulations to player " + whoWon + ". You won with " + winningCombo.join(", ");
+		for(var i = 0; i < winningCombo.length; i++){
+			document.getElementById(winningCombo[i]).className += " winner";
+		}
 	}
 	someoneWon = true;
 }
 
 function reset(){
 	for(var i = 0; i < 9; i++){
-	document.getElementsByClassName("box")[i].setAttribute("class", "box");	
-	document.getElementsByClassName("box")[i].innerHTML = "-";
-	document.getElementById("message").innerHTML = "";
+		document.getElementsByClassName("box")[i].setAttribute("class", "box");	
+		document.getElementsByClassName("box")[i].innerHTML = "-";
+		document.getElementById("message").innerHTML = "";
+		someoneWon = false;
+		player1 = [];
+		player2 = [];
 	}	
 }
+
