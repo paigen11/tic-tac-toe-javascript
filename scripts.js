@@ -2,9 +2,11 @@
 
 var whosTurn = 1; //start off on player 1's turn
 
+// 1. Build a winners array
+
 var alph = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
 var winners = [];
-var gridSize = 5;
+var gridSize = 8;
 var diag1 = [];
 var diag2 = [];
 
@@ -29,8 +31,19 @@ for(var i = 0; i < gridSize; i++){
 winners.push(diag1);
 winners.push(diag2);
 
-// 1. Build a winners array
 // 2. We need to populate the board
+var htmlForTheBoard = "";
+var boxWidth = (100 / gridSize) - (gridSize - 1);
+
+for(var i = 0; i<gridSize; i++){
+	htmlForTheBoard += '<div class="board-row-' + i + ' board-row">';
+		for(var j = 0; j<gridSize; j++){
+			htmlForTheBoard += '<button id=" ' + alph[i] + j + '" class="box" style="width:'+boxWidth+'%" onclick="markSquare(this)">-</button>';
+		}
+	htmlForTheBoard += '</div>';
+}
+
+document.getElementsByClassName('game-wrapper')[0].innerHTML = htmlForTheBoard;
 
 
 var player1 = []; //array where we will stash the squares player 1 has checked
@@ -39,6 +52,13 @@ var someoneWon = false;
 var computer = false;
 var attemptedMove;
 
+var victory = false;
+
+var aiActivated;
+
+function activateAi() {
+	aiActivated = true;
+}
 
 function markSquare(square){
 	if(someoneWon){
@@ -49,15 +69,21 @@ function markSquare(square){
 			//if BOTH are -1 then it's in neither array
 		if(whosTurn == 1){
 			square.innerHTML = "X";
-			whosturn = 2;
+			whosTurn = 2;
 			player1.push(square.id);
 			checkWin(player1,1);
-				if((computer) && (player1.length < 5)){ //determines if this is one player mode and gets computer to play
-					var pick = compOptions(square);
-					document.getElementById(pick).innerHTML = "0";
-					player2.push(pick);
-					whosTurn = 1;
-					checkWin(player2,2);
+				if((aiActivated) && (player1.length < 5)) {
+				executeAiMove(aiMove());
+				console.log(aiMove());
+				whosTurn = 1;
+				player2.push(aiMove());
+				checkWin(player2, 2);
+				// if((computer) && (player1.length < 5)){ //determines if this is one player mode and gets computer to play
+				// 	var pick = compOptions(square);
+				// 	document.getElementById(pick).innerHTML = "0";
+				// 	player2.push(pick);
+				// 	whosTurn = 1;
+				// 	checkWin(player2,2);
 		}else{
 			square.innerHTML = "0";
 			whosTurn = 1;
@@ -65,32 +91,32 @@ function markSquare(square){
 			checkWin(player2,2);
 		}
 		
-		console.dir(player1);
+		console.dir(player2);
 	}else{
 		console.log("Something's already there. No cheating!!");
 		}
 	}
 }
 
-function withComputer() {
-	computer= true;
-}
+// function withComputer() {
+// 	computer= true;
+// }
 
-var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
+// var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
-function compOptions(square){
+// function compOptions(square){
 
-	var pick;
-	var valid = false;
-	while(!valid){
-		pick = Math.floor(Math.random() * 9);
-		pick = options[pick];
-		if((player1.indexOf(square.id) == -1) && (player2.indexOf(pick) == -1)){
-			valid = true;
-		}
-	return pick;
-	}
-}
+// 	var pick;
+// 	var valid = false;
+// 	while(!valid){
+// 		pick = Math.floor(Math.random() * 9);
+// 		pick = options[pick];
+// 		if((player1.indexOf(square.id) == -1) && (player2.indexOf(pick) == -1)){
+// 			valid = true;
+// 		}
+// 	return pick;
+// 	}
+// }
 
 // function aiMove(){
     
@@ -127,7 +153,7 @@ function checkWin(currentPlayersSquares, whoJustMarked){
 				rowCount++;
 			}
 			console.log(rowCount);
-			if(rowCount == 3){
+			if(rowCount == gridSize){
 				//BINGO!!
 				gameOver(whoJustMarked, winners[i]);
 			}
@@ -150,4 +176,34 @@ function reset(){
 	document.getElementsByClassName("box")[i].innerHTML = "-";
 	document.getElementById("message").innerHTML = "";
 	}	
+}
+
+function aiMove() {
+	
+	function moveGet() {
+		var move1 = Math.floor(Math.random() * 8);
+		var move2 = Math.floor(Math.random() * 3);
+		var move = winners[move1][move2];	
+		return move;
+	}
+	var validMove = false
+	var attemptedMove;
+
+	while (validMove === false) {
+		// statement
+		var attemptedMove = moveGet();
+		if ((player1.indexOf(attemptedMove) == -1) && (player2.indexOf(attemptedMove) == -1)) {
+			validMove = true;
+		}
+	}
+	if (validMove){
+		console.log(attemptedMove);
+		return attemptedMove;
+	}
+}
+
+function executeAiMove(aiMove) {
+	var buttonGrab = document.getElementById(aiMove);
+	console.log(aiMove());
+	buttonGrab.click();
 }
