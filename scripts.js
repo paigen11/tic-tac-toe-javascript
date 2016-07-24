@@ -1,17 +1,38 @@
 var whosTurn = 1; //start off on player 1's turn
 
-var winners = [
-	["A1", "A2", "A3"], //row 1
-	["B1", "B2", "B3"], //row 2
-	["C1", "C2", "C3"], //row 3
-	["A1", "B2", "C3"], //diag 1
-	["A1", "B1", "C1"], //col 1
-	["A2", "B2", "C2"], //col 2
-	["A3", "B3", "C3"], //col 3
-	["A3", "B2", "C1"]  //other diag
-];
+// N Sized Version
 
+var whosTurn = 1; //start off on player 1's turn
 
+var alph = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+var winners = [];
+var gridSize = 5;
+var diag1 = [];
+var diag2 = [];
+
+// a0, a1, a2, a3, a4, ... aN
+// b0, b1, b2, b3, b4, ... bN
+
+for(var i = 0; i < gridSize; i++){
+	diag1.push(alph[i] + (gridSize - i)); // diag 1
+	diag2.push(alph[i] + i); // diag 2
+	var winnersInsideH = [];
+	var winnersInsideV = [];
+	for(var j = 0; j < gridSize; j++){
+		// vertical winners
+		winnersInsideH.push(alph[j] + i); 
+		// horizontal winners
+		winnersInsideV.push(alph[i] + j); 
+	}
+	winners.push(winnersInsideH);
+	winners.push(winnersInsideV);
+}
+
+winners.push(diag1);
+winners.push(diag2);
+
+// 1. Build a winners array
+// 2. We need to populate the board
 var player1 = []; //array where we will stash the squares player 1 has checked
 var player2 = []; //array for player2
 var someoneWon = false;
@@ -88,7 +109,7 @@ function checkWin(currentPlayersSquares, whoJustMarked){
 				rowCount++;
 			}
 			console.log(rowCount);
-			if(rowCount == 3){
+			if(rowCount == gridSize){
 				//BINGO!!
 				gameOver(whoJustMarked, winners[i]);
 			}
