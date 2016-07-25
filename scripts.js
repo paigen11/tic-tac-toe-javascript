@@ -1,4 +1,16 @@
+
 var whosTurn = 1; //start off on player 1's turn
+
+var winners = [
+	["A1", "A2", "A3"], //row 1
+	["B1", "B2", "B3"], //row 2
+	["C1", "C2", "C3"], //row 3
+	["A1", "B2", "C3"], //diag 1
+	["A1", "B1", "C1"], //col 1
+	["A2", "B2", "C2"], //col 2
+	["A3", "B3", "C3"], //col 3
+	["A3", "B2", "C1"]  //other diag
+];
 
 // N Sized Version
 
@@ -6,7 +18,7 @@ var whosTurn = 1; //start off on player 1's turn
 
 var alph = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
 var winners = [];
-var gridSize = 5;
+var gridSize = 3;
 var diag1 = [];
 var diag2 = [];
 
@@ -37,6 +49,10 @@ var player1 = []; //array where we will stash the squares player 1 has checked
 var player2 = []; //array for player2
 var someoneWon = false;
 var numPlayers = 1;
+
+$('.box').click(function(){
+	markSquare(this);
+})
 
 var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
@@ -109,7 +125,7 @@ function checkWin(currentPlayersSquares, whoJustMarked){
 				rowCount++;
 			}
 			console.log(rowCount);
-			if(rowCount == gridSize){
+			if(rowCount == 3){
 				//BINGO!!
 				gameOver(whoJustMarked, winners[i]);
 			}
