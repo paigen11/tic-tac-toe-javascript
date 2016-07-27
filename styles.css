@@ -1,4 +1,11 @@
+body{
+	background-image: url("../images/star_background.jpg");
+}
 
+.container{
+	transform: rotateX(40deg);
+	
+}
 
 .title-wrapper{
 	padding: 30px;
@@ -23,7 +30,7 @@ input{
 }
 
 .game-wrapper{
-	background-color: black;
+	background-color: yellow;
 	max-width: 640px;
 	min-width: 320px;
 	width: 75%;

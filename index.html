@@ -10,36 +10,36 @@
 </head>
 <body>
 
-<div class="title-wrapper">
-	<h1>TIC TAC TOE</h1>
-	<h2 id="message"></h2>
-</div>
-<div class="button-wrapper">
-	<input type="button" id="onePlayer" value="1 Player" onclick="setNumberOfUsers(1)">
-	<input type="button" id="twoPlayers" value="2 Players" onclick="setNumberOfUsers(2)">
-	<input type="button" value="Reset Game" onclick="reset()">
-</div>
-
-<div class="game-wrapper">
-	
-	<div class="board-row-1 board-row">
-		<button id="A1" class="box" onclick="markSquare(this)">-</button>
-		<button id="A2" class="box" onclick="markSquare(this)">-</button>
-		<button id="A3" class="box" onclick="markSquare(this)">-</button>
+<div class="container">
+	<div class="title-wrapper">
+		<h1>TIC TAC TOE</h1>
+		<h2 id="message"></h2>
 	</div>
-	<div class="board-row-2 board-row">
-		<button id="B1" class="box" onclick="markSquare(this)">-</button>
-		<button id="B2" class="box" onclick="markSquare(this)">-</button>
-		<button id="B3" class="box" onclick="markSquare(this)">-</button>
-	</div>
-	<div class="board-row-3 board-row">
-		<button id="C1" class="box" onclick="markSquare(this)">-</button>
-		<button id="C2" class="box" onclick="markSquare(this)">-</button>
-		<button id="C3" class="box" onclick="markSquare(this)">-</button>
+	<div class="button-wrapper">
+		<input type="button" id="onePlayer" value="1 Player" onclick="setNumberOfUsers(1)">
+		<input type="button" id="twoPlayers" value="2 Players" onclick="setNumberOfUsers(2)">
+		<input type="button" value="Reset Game" onclick="reset()">
 	</div>
 
+	<div class="game-wrapper">
+		
+		<div class="board-row-1 board-row">
+			<button id="A1" class="box" onclick="markSquare(this)">-</button>
+			<button id="A2" class="box" onclick="markSquare(this)">-</button>
+			<button id="A3" class="box" onclick="markSquare(this)">-</button>
+		</div>
+		<div class="board-row-2 board-row">
+			<button id="B1" class="box" onclick="markSquare(this)">-</button>
+			<button id="B2" class="box" onclick="markSquare(this)">-</button>
+			<button id="B3" class="box" onclick="markSquare(this)">-</button>
+		</div>
+		<div class="board-row-3 board-row">
+			<button id="C1" class="box" onclick="markSquare(this)">-</button>
+			<button id="C2" class="box" onclick="markSquare(this)">-</button>
+			<button id="C3" class="box" onclick="markSquare(this)">-</button>
+		</div>
+	</div>
 </div>
-
 <script type="text/javascript" src="scripts.js"></script>
 
 </body>
