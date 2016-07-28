@@ -52,19 +52,11 @@ var player2 = []; //array for player2
 var someoneWon = false;
 var numPlayers = 1;
 
-$('.box').click(function(){
-	markSquare(this);
-})
-
 var options = ["A1", "A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
 function setNumberOfUsers(x){
 	numPlayers = x;
 }
-
-$('.box').click(function(){
-	markSquare(this);
-});
 
 function markSquare(square){
 	if(someoneWon){
