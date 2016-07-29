@@ -8,6 +8,7 @@ body{
 	height: 2500px;
 	width: 100%;
 	font-family: 'Star Jedi Hollow';
+	perspective: 2700px;
 }
 
 .container{
@@ -25,16 +26,17 @@ body{
 	color: white;
 }
 
+h2{
+	font-size: 35px;
+}
+
 .button-wrapper{
 	padding-bottom: 40px;
 	margin: 0 auto;
 	max-width: 640px;
 	min-width: 320px;
 	text-align: center;
-
-
 }
-
 
 input{
 	font-size: 25px;

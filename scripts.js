@@ -12,41 +12,16 @@ var winners = [
 	["A3", "B2", "C1"]  //other diag
 ];
 
-// N Sized Version
 
 var whosTurn = 1; //start off on player 1's turn
 
 var alph = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-var winners = [];
+// var winners = [];
 var gridSize = 3;
 var diag1 = [];
 var diag2 = [];
 
-// a0, a1, a2, a3, a4, ... aN
-// b0, b1, b2, b3, b4, ... bN
 
-// 1. Build a winners array
-
-for(var i = 0; i < gridSize; i++){
-	diag1.push(alph[i] + (gridSize - i)); // diag 1
-	diag2.push(alph[i] + i); // diag 2
-	var winnersInsideH = [];
-	var winnersInsideV = [];
-	for(var j = 0; j < gridSize; j++){
-		// vertical winners
-		winnersInsideH.push(alph[j] + i); 
-		// horizontal winners
-		winnersInsideV.push(alph[i] + j); 
-	}
-	winners.push(winnersInsideH);
-	winners.push(winnersInsideV);
-}
-
-winners.push(diag1);
-winners.push(diag2);
-
-
-// 2. We need to populate the board
 var player1 = []; //array where we will stash the squares player 1 has checked
 var player2 = []; //array for player2
 var someoneWon = false;
